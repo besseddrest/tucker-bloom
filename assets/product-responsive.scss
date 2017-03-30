@@ -1,0 +1,47 @@
+.product {
+  &--main {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 45%;
+    }
+
+    & div.product--nav, & > h1 {
+      flex: 1 1 100%;
+    }
+  }
+}
+
+#product-photo-container {
+  width: 100%;
+
+  & img {
+    width: 100%;
+  }
+}
+
+/* phone devices */
+@media only screen and (max-width: 480px) {
+  .product {
+    &--prev-next__mobile {
+      display: block;
+    }
+
+    &--buybox {
+      &__mobile {
+        display: flex;
+      }
+    }
+  }
+
+
+  .product-prices,
+  .main-title,
+  .main-vendor,
+  .b-next-prev-product {
+    display: none;
+  }
+}

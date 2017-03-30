@@ -23,26 +23,25 @@
       <form action="/cart/add" method="post" enctype="multipart/form-data">
       {% endif %}
 
+        {% comment %}Previous Next Products{% endcomment %}
+        <div class="product--nav">
+          <div class="product--nav__prev">
+            {% if collection.previous_product %}
+              {{ '&larr;  Previous Product' | link_to: collection.previous_product }}
+            {% endif %}
+          </div>
+          <div class="product--nav__next">
+            {% if collection.next_product %}
+              {{ 'Next Product &rarr; ' | link_to: collection.next_product }}
+            {% endif %}
+          </div>
+        </div>
+
+        {% comment %}HC Show only on smartphones{% endcomment %}
+        <h1 itemprop="name" class="product--title__mobile">{{ product.title }} </h1>
+
         {% comment %}New Product Page Layout: Harold{% endcomment %}
         <div class="product--main">
-
-          {% comment %}Previous Next Products{% endcomment %}
-          <div class="product--nav">
-            <div class="product--nav__prev">
-              {% if collection.previous_product %}
-                {{ '&larr;  Previous Product' | link_to: collection.previous_product }}
-              {% endif %}
-            </div>
-            <div class="product--nav__next">
-              {% if collection.next_product %}
-                {{ 'Next Product &rarr; ' | link_to: collection.next_product }}
-              {% endif %}
-            </div>
-          </div>
-
-          {% comment %}HC Show only on smartphones{% endcomment %}
-          <h1 itemprop="name" class="product--title__mobile">{{ product.title }} </h1>
-
           {% comment %}HC Image Gallery{% endcomment %}
           <div class="product--photos">
             <div id="product-photos">
@@ -64,24 +63,25 @@
               </div>
 
               {% if product.images.size > 1 %}
+              <!--
               <ul id="product-photo-thumbs" class="clearfix">
                 {% assign count = 0 %}
                 {% for image in product.images %}
 
-                {% for variant in product.variants %}
-                {% if variant.image.id == image.id %}
-                {% assign count = count | plus: 1 %}
-                {% endif %}
-                {% endfor %}
+                  {% for variant in product.variants %}
+                    {% if variant.image.id == image.id %}
+                      {% assign count = count | plus: 1 %}
+                    {% endif %}
+                  {% endfor %}
 
-                <li class="product-photo-thumb gallery" image-id="{{ image.id }}">
-                  <a class="gallery" href="{{ image.src | img_url: 'original' }}" data-image-id="{{ image.id }}">
-                    <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
-                  </a>
-                </li>
+                  <li class="product-photo-thumb gallery" image-id="{{ image.id }}">
+                    <a class="gallery" href="{{ image.src | img_url: 'original' }}" data-image-id="{{ image.id }}">
+                      <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+                    </a>
+                  </li>
 
                 {% endfor %}
-              </ul>
+              </ul>-->
               <ul id="lightbox" class="hidden">
                 {% for image in product.images %}
                 <li>
@@ -528,27 +528,6 @@ $(document).ready(function() {
 
 
 </script>
-
-<style>
-  .product--main {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .product--main > div {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 50%;
-  }
-
-  .product--main div.product--nav, .product--main > h1 {
-    flex-basis: 100%;
-  }
-
-  #product-photos {
-    width: 580px;
-  }
-</style>
 
 <style scope>
 
