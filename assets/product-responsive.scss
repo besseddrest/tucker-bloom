@@ -13,6 +13,10 @@
       flex: 1 1 100%;
     }
   }
+
+  &--title__mobile {
+    display: none;
+  }
 }
 
 #product-photo-container {
@@ -26,14 +30,34 @@
 /* phone devices */
 @media only screen and (max-width: 480px) {
   .product {
-    &--prev-next__mobile {
-      display: block;
+    &--main {
+      flex-direction: column;
     }
 
-    &--buybox {
-      &__mobile {
-        display: flex;
+    &--details {
+      & > div {
+        order: 3;
       }
+
+      & div.product--prices {
+        order: 0;
+      }
+
+      & div.product--submit {
+        order: 1;
+      }
+
+      & div.product--info {
+        order: 2;
+      }
+    }
+
+    &--share, &--reviews {
+      display: none;
+    }
+
+    &--title__mobile {
+      display: block;
     }
   }
 

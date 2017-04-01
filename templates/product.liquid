@@ -96,8 +96,10 @@
             <!-- Share -->
             {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
             {% if settings.social_sharing_products %}
-            <h4>Share this product</h4>
-            {% include 'social-sharing' %}
+            <div class="product--share">
+              <h4>Share this product</h4>
+              {% include 'social-sharing' %}
+            </div>
             {% endif %}
             {% endif %}
 
@@ -126,7 +128,7 @@
             <h1 itemprop="name" class="main-title">{{ product.title }} </h1>
 
             <!-- Price -->
-            <div id="product-prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="skbx-hide-xxx">
+            <div id="product-prices" class="product--prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="skbx-hide-xxx">
               <meta itemprop="priceCurrency" content="{{ shop.currency }}">
               {% if product.available %}
               <link itemprop="availability" href="http://schema.org/InStock">
@@ -165,10 +167,12 @@
             <div class="product--description"></div>
 
             <!-- Reviews -->
-            <div style="padding-bottom: 20px"><span class="rateit k_product_rating" id="{{ product.id }}"></span></div>
+            <div class="product--reviews">
+              <span class="rateit k_product_rating" id="{{ product.id }}"></span>
+            </div>
 
             <!-- Buy Button -->
-            <button style="margin-top:15px;" type="submit" name="add" id="add" class="btn">
+            <button type="submit" name="add" id="add" class="btn product--submit">
               <span id="addText">{{ 'products.product.add_to_cart' | t }}</span>
             </button>
 
