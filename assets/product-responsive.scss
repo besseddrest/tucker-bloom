@@ -14,7 +14,7 @@
     }
   }
 
-  &--title__mobile {
+  &--title__mobile, &--share__mobile {
     display: none;
   }
 }
@@ -52,20 +52,28 @@
       }
     }
 
-    &--share, &--reviews {
+    &--options {
+      & .swatch {
+        display: flex;
+        flex-wrap: wrap;
+
+        &-element {
+          flex: 1;
+        }
+      }
+
+      & .header {
+        flex-basis: 100%;
+        border: 1px solid red;
+      }
+    }
+
+    &--share, &--reviews, &--security, &--details h1.main-title {
       display: none;
     }
 
-    &--title__mobile {
+    &--title__mobile, &--share__mobile {
       display: block;
     }
-  }
-
-
-  .product-prices,
-  .main-title,
-  .main-vendor,
-  .b-next-prev-product {
-    display: none;
   }
 }

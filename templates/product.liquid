@@ -313,6 +313,16 @@
         </div>
       </div>
       {% endif %}
+
+      <!-- Share -->
+      {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
+      {% if settings.social_sharing_products %}
+      <div class="product--share__mobile">
+        <h4>Share this product</h4>
+        {% include 'social-sharing' %}
+      </div>
+      {% endif %}
+      {% endif %}
     </div><!-- #product-content -->
 
     {% include 'limespot-tracker-product' %}
@@ -571,5 +581,14 @@ $(document).ready(function() {
     margin-bottom: 0;
     margin: 0;
   }
+</style>
+<style>
+@media only screen and (max-width: 480px) {
+  /* Overrides */
+  #product-content .select-wrappers .swatch {
+    float: none;
+    width: auto;
+  }
+}
 </style>
 <center>{% if product.metafields.kudobuzz.review_count > 0 %}<div itemscope itemtype="http://schema.org/Product" ><span itemprop="name"><b>{{product.title}}</b></span><div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">  <u>Rated:</u> <span itemprop="ratingValue">{{product.metafields.kudobuzz.review_rating}}</span> / 5  based on <span itemprop="reviewCount">{{product.metafields.kudobuzz.review_count}}</span> customer reviews </div></div>{% endif %}</center>
