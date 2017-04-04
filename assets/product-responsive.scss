@@ -27,6 +27,10 @@
   }
 }
 
+[data-title="Description"] {
+  display: none;
+}
+
 /* phone devices */
 @media only screen and (max-width: 480px) {
   .product {
@@ -64,16 +68,19 @@
 
       & .header {
         flex-basis: 100%;
-        border: 1px solid red;
       }
     }
 
-    &--share, &--reviews, &--security, &--details h1.main-title {
+    &--share, &--reviews, &--security, &--details h1.main-title, &--description {
       display: none;
     }
 
     &--title__mobile, &--share__mobile {
       display: block;
     }
+  }
+
+  [data-title="Description"] {
+    display: block;
   }
 }
