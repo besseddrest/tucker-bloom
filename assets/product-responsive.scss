@@ -1,4 +1,20 @@
 .product {
+  &--nav {
+    display: flex;
+
+    div {
+      flex: 1;
+    }
+
+    &__prev {
+      text-align: left;
+    }
+
+    &__next {
+      text-align: right;
+    }
+  }
+
   &--main {
     display: flex;
     justify-content: space-between;
@@ -17,6 +33,11 @@
   &--title__mobile, &--share__mobile {
     display: none;
   }
+}
+
+.select-wrappers {
+  display: flex;
+  flex-direction: column;
 }
 
 #product-photo-container {
@@ -78,6 +99,12 @@
     &--title__mobile, &--share__mobile {
       display: block;
     }
+  }
+
+  /* Overrides */
+  #product-content .select-wrappers .swatch {
+    float: none;
+    width: auto;
   }
 
   [data-title="Description"] {
