@@ -1,16 +1,3 @@
-{% comment %}
-  Hide Image carousel on mobile and tablet
-  Swipe for alternate images
-  accordion condense all the text tabs
-  x shrink the bag name and bring that text to the top
-  x Get rid of "Tucker & Bloom" tag by bag name
-  figure out better layout for color swatches. Wider and thinner buttons perhaps?
-  x Hide "safe and secure shopping" button
-  Shrink down price text
-  shrink down add to cart button
-  x Bring up "previous product" "next product" buttons and replace with larger icons
-  better layout for the social share?
-{% endcomment %}
 <div class="b-wrap b-wrap_single-product">
   <div class="b-inner b-inner_single-product">
 
@@ -27,12 +14,12 @@
         <div class="product--nav">
           <div class="product--nav__prev">
             {% if collection.previous_product %}
-              {{ '&larr;  Previous Product' | link_to: collection.previous_product }}
+              {{ '&laquo;  Previous Product' | link_to: collection.previous_product }}
             {% endif %}
           </div>
           <div class="product--nav__next">
             {% if collection.next_product %}
-              {{ 'Next Product &rarr; ' | link_to: collection.next_product }}
+              {{ 'Next Product &raquo; ' | link_to: collection.next_product }}
             {% endif %}
           </div>
         </div>
@@ -124,7 +111,7 @@
 
           {% comment %}HC Product Details{% endcomment %}
           <div class="product--details">
-            <h1 itemprop="name" class="main-title">{{ product.title }} </h1>
+            <h1 itemprop="name" class="product--title__main">{{ product.title }} </h1>
 
             <!-- Price -->
             <div class="product--prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="skbx-hide-xxx">
@@ -135,13 +122,13 @@
               <link itemprop="availability" href="http://schema.org/OutOfStock">
               {% endif %}
 
-              <p class="skbx-hide-x">
+              <div class="skbx-hide-x">
                 {% if product.compare_at_price > product.price %}
                 <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="product-compare-price">{{ product.compare_at_price_max | money }}</span>
                 {% else %}
                 <span class="product-price" itemprop="price">{{ product.price | money }}</span>
                 {% endif %}
-              </p>
+              </div>
 
               <div class="skbx-show-x">
                 <div class="internationalPrice" id="skybox-product-price-{{product.id}}"></div>
@@ -202,7 +189,7 @@
 
               <div class="{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
                 <div class="select-wrappers{% if hide_default_title %} hidden{% endif %}">
-                  <div class="options-title"> Bag Options </div>
+                  <div class="product--options-title">Options </div>
                   <select id="product-select" name="id" class="hidden skybox-product-select">
                     {% for variant in product.variants %}
                     <option{% if variant == product.selected_or_first_available_variant %} selected{% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
@@ -277,8 +264,7 @@
 
             <!-- Info -->
             <div class="product--info">
-              <strong>Free domestic shipping</strong>
-              <em>on all orders</em>
+              <strong>Free domestic shipping</strong> on all orders
             </div>
 
             <!-- Security -->
