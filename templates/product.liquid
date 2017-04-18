@@ -79,6 +79,8 @@
               {% endif %}
             </div><!-- #product-photos -->
 
+            <div class="tabs__full"></div>
+
             <!-- Share -->
             {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
             {% if settings.social_sharing_products %}
@@ -264,7 +266,8 @@
 
             <!-- Info -->
             <div class="product--info">
-              <strong>Free domestic shipping</strong> on all orders
+              <strong>Free domestic shipping</strong>
+              <em>on all orders</em>
             </div>
 
             <!-- Security -->
@@ -289,12 +292,14 @@
       {% endif %}
 
       {% if settings.prod_desc_placement == 'bottom' %}
-      <div id="product-description">
-        <div id="full_description" class="rte" itemprop="description">
-          {% comment %}
-          {{ product.description }}
-          {% endcomment %}
-          {% include 'product-tabs' %}
+      <div class="tabs__mobile">
+        <div id="product-description">
+          <div id="full_description" class="rte" itemprop="description">
+            {% comment %}
+            {{ product.description }}
+            {% endcomment %}
+            {% include 'product-tabs' %}
+          </div>
         </div>
       </div>
       {% endif %}
