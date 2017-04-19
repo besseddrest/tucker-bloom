@@ -11,12 +11,12 @@
 <script>
 
   function productTabs () {
-    $('.b-tabs').before('<div class="b-tabs__header"/>');
+    $('.b-tabs').before('<div class="b-tabs__header tabs--wrapper"/>');
     var tabSections = $('.tab-section').hide();
     tabSections.each(function(index) {
       var index = index + 1;
       $(this).attr('id', 'toTab_'+ index +'');
-      var tabSwitcher = '<a class="tab-switch  '+ $(this).data('title')+'" href="#toTab_'+ index +'">' + $(this).data('title') +' </a>';
+      var tabSwitcher = '<a class="tabs--item tab-switch  '+ $(this).data('title')+'" href="#toTab_'+ index +'">' + $(this).data('title') +' </a>';
       $(this).before(tabSwitcher);
       $('.b-tabs__header').append(tabSwitcher);
     });

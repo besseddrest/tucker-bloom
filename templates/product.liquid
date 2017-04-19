@@ -81,16 +81,6 @@
 
             <div class="tabs__full"></div>
 
-            <!-- Share -->
-            {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
-            {% if settings.social_sharing_products %}
-            <div class="product--share">
-              <h4>Share this product</h4>
-              {% include 'social-sharing' %}
-            </div>
-            {% endif %}
-            {% endif %}
-
             {% comment %}Figure out what this is{% endcomment %}
             {% if settings.prod_desc_placement == 'below' %}
               <div id="product-description" class="below">
@@ -270,7 +260,7 @@
               <em>on all orders</em>
             </div>
 
-            <!-- Security -->
+            <!-- Security & Share-->
             <div class="product--security">
               <figure class="pr-title__image">
                 <img alt="" src="{{'safe-secure.png' | asset_url}}">
@@ -283,6 +273,16 @@
                 </div>
                 <!-- pr-hint -->
               </figure>
+
+              <!-- Share -->
+              {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
+              {% if settings.social_sharing_products %}
+              <div class="product--share">
+                <h4>Share this product</h4>
+                {% include 'social-sharing' %}
+              </div>
+              {% endif %}
+              {% endif %}
             </div>
 
           </div>
