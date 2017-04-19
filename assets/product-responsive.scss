@@ -185,6 +185,11 @@
   margin-right: 0;
 }
 
+.owl-carousel .owl-item {
+  margin-right: 20px !important;
+  overflow: hidden;
+}
+
 /* responsive width for thumbs */
 @media only screen and (max-width: 1099px) {
   #product-photo-thumbs {
