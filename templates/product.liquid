@@ -103,188 +103,189 @@
 
           {% comment %}HC Product Details{% endcomment %}
           <div class="product--details">
-            <h1 itemprop="name" class="product--title__main">{{ product.title }} </h1>
+            <div class="product--details-wrapper">
+              <h1 itemprop="name" class="product--title__main">{{ product.title }} </h1>
 
-            <!-- Price -->
-            <div class="product--prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="skbx-hide-xxx">
-              <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-              {% if product.available %}
-              <link itemprop="availability" href="http://schema.org/InStock">
-              {% else %}
-              <link itemprop="availability" href="http://schema.org/OutOfStock">
-              {% endif %}
-
-              <div class="skbx-hide-x">
-                {% if product.compare_at_price > product.price %}
-                <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="product-compare-price">{{ product.compare_at_price_max | money }}</span>
+              <!-- Price -->
+              <div class="product--prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="skbx-hide-xxx">
+                <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+                {% if product.available %}
+                <link itemprop="availability" href="http://schema.org/InStock">
                 {% else %}
-                <span class="product-price" itemprop="price">{{ product.price | money }}</span>
+                <link itemprop="availability" href="http://schema.org/OutOfStock">
                 {% endif %}
-              </div>
 
-              <div class="skbx-show-x">
-                <div class="internationalPrice" id="skybox-product-price-{{product.id}}"></div>
-              </div>
-
-              <div id="backorder" class="hidden">
-                {% capture item %}<span id="selected-variant"></span>{% endcapture %}
-                <p>{{ 'products.product.back_order_message_html' | t: item: item }}</p>
-                <hr>
-              </div>
-
-              {% unless product.available %}
-              {% if settings.notify_me_form %}
-              <div id="sold-out">
-                {% include 'snippet-notify-me' %}
-              </div>
-              {% endif %}
-              {% endunless %}
-            </div>
-
-            <!-- Description -->
-            <div class="product--description"></div>
-
-            <!-- Reviews -->
-            <div class="product--reviews">
-              <span class="rateit k_product_rating" id="{{ product.id }}"></span>
-            </div>
-
-            <!-- Options -->
-            <div class="product--options">
-              {% comment %}{{ product.description }}{% endcomment %}
-              {% if settings.show_vendor %}
-              {% assign product_vendor_handle = product.vendor | handle %}
-              {% if collections[product_vendor_handle].handle == product_vendor_handle %}
-              {% assign vendor_url = collections[product_vendor_handle].url %}
-              {% else %}
-              {% assign vendor_url = product.vendor | url_for_vendor %}
-              {% endif %}
-              <!--<h3 itemprop="brand" class="main-vendor">{{ product.vendor | link_to: vendor_url }}</h3>-->
-              {% endif %}
-
-              {% if settings.prod_desc_placement == 'above' %}
-              <div id="product-description" class="above">
-                <div id="full_description" class="rte" itemprop="description">
-                  {{ product.description }}
-                </div>
-              </div>
-              {% endif %}
-
-              <!-- Skybox -->
-              {% include 'skybox-price-button-without-international' %}
-              <!-- /Skybox -->
-
-              {% assign hide_default_title = false %}
-              {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
-                {% assign hide_default_title = true %}
-              {% endif %}
-
-              <div class="{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
-                <div class="select-wrappers{% if hide_default_title %} hidden{% endif %}">
-                  <div class="product--options-title">Options </div>
-                  <select id="product-select" name="id" class="hidden skybox-product-select">
-                    {% for variant in product.variants %}
-                    <option{% if variant == product.selected_or_first_available_variant %} selected{% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-                    {% endfor %}
-                  </select>
-
-                  <div id="infiniteoptions-container"></div>
-                  {% if product.available and product.variants.size > 0 %}
-                  {% for option in product.options %}
-                  {% if option contains 'Color' or option contains 'Lining' or option contains 'Hide' or option contains 'Leather Shoulder Pad' or option contains 'Laptop Sleeve' %}{% include 'swatch' with option %}{% endif %}
-                  <!-- {% if option contains 'Size' or option contains 'Leather Shoulder Pad' or option contains 'Laptop Sleeve' %}{% include 'swatch' with option %}{% endif %} -->
-                  {% endfor %}
+                <div class="skbx-hide-x">
+                  {% if product.compare_at_price > product.price %}
+                  <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="product-compare-price">{{ product.compare_at_price_max | money }}</span>
+                  {% else %}
+                  <span class="product-price" itemprop="price">{{ product.price | money }}</span>
                   {% endif %}
-
-                  {% if settings.show_qty %}
-                  {% include 'snippet-quantity' %}
-                  {% endif %}
-
                 </div>
-                {% if settings.show_qty %}
-                <div class="selector-wrapper">
-                  <label for="quantity">{{ 'products.product.quantity' | t }}</label>
-                  <input id="quantity" type="number" name="quantity" class="styled-input" value="1" min="1">
+
+                <div class="skbx-show-x">
+                  <div class="internationalPrice" id="skybox-product-price-{{product.id}}"></div>
+                </div>
+
+                <div id="backorder" class="hidden">
+                  {% capture item %}<span id="selected-variant"></span>{% endcapture %}
+                  <p>{{ 'products.product.back_order_message_html' | t: item: item }}</p>
+                  <hr>
+                </div>
+
+                {% unless product.available %}
+                {% if settings.notify_me_form %}
+                <div id="sold-out">
+                  {% include 'snippet-notify-me' %}
+                </div>
+                {% endif %}
+                {% endunless %}
+              </div>
+
+              <!-- Description -->
+              <div class="product--description"></div>
+
+              <!-- Reviews -->
+              <div class="product--reviews">
+                <span class="rateit k_product_rating" id="{{ product.id }}"></span>
+              </div>
+
+              <!-- Options -->
+              <div class="product--options">
+                {% comment %}{{ product.description }}{% endcomment %}
+                {% if settings.show_vendor %}
+                {% assign product_vendor_handle = product.vendor | handle %}
+                {% if collections[product_vendor_handle].handle == product_vendor_handle %}
+                {% assign vendor_url = collections[product_vendor_handle].url %}
+                {% else %}
+                {% assign vendor_url = product.vendor | url_for_vendor %}
+                {% endif %}
+                <!--<h3 itemprop="brand" class="main-vendor">{{ product.vendor | link_to: vendor_url }}</h3>-->
+                {% endif %}
+
+                {% if settings.prod_desc_placement == 'above' %}
+                <div id="product-description" class="above">
+                  <div id="full_description" class="rte" itemprop="description">
+                    {{ product.description }}
+                  </div>
                 </div>
                 {% endif %}
 
-                {% comment %}
-                Additional form fields to customize your product.
-                Example code below for every type of form fields.
-                Use any form field, and as many as you need.
-                {% endcomment %}
+                <!-- Skybox -->
+                {% include 'skybox-price-button-without-international' %}
+                <!-- /Skybox -->
 
-                {% comment %}
-                <div id="properties">
-                  <div class="property-wrapper">
-                    <label for="first-property">First Property</label>
-                    <select id="first-property" name="properties[First Property]">
-                      <option>First Option</option>
-                      <option>Second Option</option>
-                      <option>Third Option</option>
-                      <option>Fourth Option</option>
+                {% assign hide_default_title = false %}
+                {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                  {% assign hide_default_title = true %}
+                {% endif %}
+
+                <div class="{% if hide_default_title %}{% unless settings.show_qty and product.available %} hidden{% endunless %}{% endif %}">
+                  <div class="select-wrappers{% if hide_default_title %} hidden{% endif %}">
+                    <div class="product--options-title">Options </div>
+                    <select id="product-select" name="id" class="hidden skybox-product-select">
+                      {% for variant in product.variants %}
+                      <option{% if variant == product.selected_or_first_available_variant %} selected{% endif %} value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                      {% endfor %}
                     </select>
+
+                    <div id="infiniteoptions-container"></div>
+                    {% if product.available and product.variants.size > 0 %}
+                    {% for option in product.options %}
+                    {% if option contains 'Color' or option contains 'Lining' or option contains 'Hide' or option contains 'Leather Shoulder Pad' or option contains 'Laptop Sleeve' %}{% include 'swatch' with option %}{% endif %}
+                    <!-- {% if option contains 'Size' or option contains 'Leather Shoulder Pad' or option contains 'Laptop Sleeve' %}{% include 'swatch' with option %}{% endif %} -->
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if settings.show_qty %}
+                    {% include 'snippet-quantity' %}
+                    {% endif %}
+
                   </div>
-                  <div class="property-wrapper">
-                    <p>Second Property</p>
-                    <input class="radio" type="radio" id="first-option" name="properties[Second Property]" value="First Option"> <label for="first-option">First Option</label>
-                    <input class="radio"type="radio" id="second-option" name="properties[Second Property]" value="Second Option"> <label for="second-option">Second Option</label>
-                    <input class="radio"type="radio" id="third-option" name="properties[Second Property]" value="Third Option"> <label for="third-option">Third Option</label>
-                    <input class="radio"type="radio" id="fourth-option" name="properties[Second Property]" value="Fourth Option"> <label for="fourth-option">Fourth Option</label>
+                  {% if settings.show_qty %}
+                  <div class="selector-wrapper">
+                    <label for="quantity">{{ 'products.product.quantity' | t }}</label>
+                    <input id="quantity" type="number" name="quantity" class="styled-input" value="1" min="1">
                   </div>
-                  <div class="property-wrapper">
-                    <label for="third-property">Third Property</label>
-                    <input class="text" type="text" id="third-property" name="properties[Third Property]" value="">
+                  {% endif %}
+
+                  {% comment %}
+                  Additional form fields to customize your product.
+                  Example code below for every type of form fields.
+                  Use any form field, and as many as you need.
+                  {% endcomment %}
+
+                  {% comment %}
+                  <div id="properties">
+                    <div class="property-wrapper">
+                      <label for="first-property">First Property</label>
+                      <select id="first-property" name="properties[First Property]">
+                        <option>First Option</option>
+                        <option>Second Option</option>
+                        <option>Third Option</option>
+                        <option>Fourth Option</option>
+                      </select>
+                    </div>
+                    <div class="property-wrapper">
+                      <p>Second Property</p>
+                      <input class="radio" type="radio" id="first-option" name="properties[Second Property]" value="First Option"> <label for="first-option">First Option</label>
+                      <input class="radio"type="radio" id="second-option" name="properties[Second Property]" value="Second Option"> <label for="second-option">Second Option</label>
+                      <input class="radio"type="radio" id="third-option" name="properties[Second Property]" value="Third Option"> <label for="third-option">Third Option</label>
+                      <input class="radio"type="radio" id="fourth-option" name="properties[Second Property]" value="Fourth Option"> <label for="fourth-option">Fourth Option</label>
+                    </div>
+                    <div class="property-wrapper">
+                      <label for="third-property">Third Property</label>
+                      <input class="text" type="text" id="third-property" name="properties[Third Property]" value="">
+                    </div>
+                    <div class="property-wrapper">
+                      <input class="checkbox" type="checkbox" id="fourth-property" name="properties[Fourth Property]" value="Yes">
+                      <label for="fourth-property">Fourth Property Opt-in</label>
+                    </div>
+                    <div class="property-wrapper">
+                      <label for="fifth-property">Fifth Property</label>
+                      <input class="file" type="file" id="fifth-property" name="properties[Fifth Property]">
+                    </div>
                   </div>
-                  <div class="property-wrapper">
-                    <input class="checkbox" type="checkbox" id="fourth-property" name="properties[Fourth Property]" value="Yes">
-                    <label for="fourth-property">Fourth Property Opt-in</label>
-                  </div>
-                  <div class="property-wrapper">
-                    <label for="fifth-property">Fifth Property</label>
-                    <input class="file" type="file" id="fifth-property" name="properties[Fifth Property]">
-                  </div>
+                  {% endcomment %}
                 </div>
-                {% endcomment %}
+              </div>
+
+              <!-- Buy Button -->
+              <button type="submit" name="add" id="add" class="btn product--submit">
+                <span id="addText">{{ 'products.product.add_to_cart' | t }}</span>
+              </button>
+
+              <!-- Info -->
+              <div class="product--info">
+                <strong>Free domestic shipping</strong>
+                <em>on all orders</em>
+              </div>
+
+              <!-- Security & Share-->
+              <div class="product--security">
+                <figure class="pr-title__image">
+                  <img alt="" src="{{'safe-secure.png' | asset_url}}">
+                  <div class="pr-hint">
+                     <span class="pr-title-hint">
+                      Shop safely and securely with our price match guarantee. If you find a cheaper price we will refund 100% of the difference! <a target="_blank" href="/pages/about-us/#warranty">
+                      Click Here </a> to see the details!
+                    </span>
+                    <!-- pr-title-hint -->
+                  </div>
+                  <!-- pr-hint -->
+                </figure>
+
+                <!-- Share -->
+                {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
+                {% if settings.social_sharing_products %}
+                <div class="product--share">
+                  <h4>Share this product</h4>
+                  {% include 'social-sharing' %}
+                </div>
+                {% endif %}
+                {% endif %}
               </div>
             </div>
-
-            <!-- Buy Button -->
-            <button type="submit" name="add" id="add" class="btn product--submit">
-              <span id="addText">{{ 'products.product.add_to_cart' | t }}</span>
-            </button>
-
-            <!-- Info -->
-            <div class="product--info">
-              <strong>Free domestic shipping</strong>
-              <em>on all orders</em>
-            </div>
-
-            <!-- Security & Share-->
-            <div class="product--security">
-              <figure class="pr-title__image">
-                <img alt="" src="{{'safe-secure.png' | asset_url}}">
-                <div class="pr-hint">
-                   <span class="pr-title-hint">
-                    Shop safely and securely with our price match guarantee. If you find a cheaper price we will refund 100% of the difference! <a target="_blank" href="/pages/about-us/#warranty">
-                    Click Here </a> to see the details!
-                  </span>
-                  <!-- pr-title-hint -->
-                </div>
-                <!-- pr-hint -->
-              </figure>
-
-              <!-- Share -->
-              {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
-              {% if settings.social_sharing_products %}
-              <div class="product--share">
-                <h4>Share this product</h4>
-                {% include 'social-sharing' %}
-              </div>
-              {% endif %}
-              {% endif %}
-            </div>
-
           </div>
         </div>
       {% if product.available %}

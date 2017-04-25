@@ -30,8 +30,18 @@
       padding: 0 20px;
     }
 
+    div.product--photos {
+      display: block;
+    }
+
     div.product--details {
-      padding-right: 0;
+      display: block;
+      padding: 0;
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     & div.product--nav, & > h1 {
@@ -271,7 +281,7 @@
 
   /* Overrides */
   #product-photo-thumbs {
-    width: 375px;
+    width: auto;
   }
 
   #product-content .select-wrappers .swatch {
