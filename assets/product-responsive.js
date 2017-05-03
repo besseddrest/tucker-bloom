@@ -42,6 +42,14 @@ window.onresize = () => {
     renderTabsFull();
 }
 
+/* ShopVenture Reviews */
+// Copies the code that instantiates the ShopVenture reviews and includes it
+// in the reviews tabs
+const shopventureWrap = document.querySelector('.shopventure--reviews');
+const shopventureWidget = document.querySelector('.shopventure--widget');
+shopVentureWrap.innerHTML = shopVentureWidget.innerHTML;
+
+/* Swatch Labels */
 const swatchGroup = Array.from(document.querySelectorAll('.swatch'));
 swatchGroup.forEach(group => {
   const header = group.querySelector('.header'),

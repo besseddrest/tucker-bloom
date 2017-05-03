@@ -147,7 +147,16 @@
 
               <!-- Reviews -->
               <div class="product--reviews">
-                <span class="rateit k_product_rating" id="{{ product.id }}"></span>
+                <a class="shopventure-widget"
+                   href="https://www.shopventure.com/shops/tucker-and-bloom-reviews"
+                   title="Tucker and Bloom Reviews on ShopVenture"
+                   data-type="product_rating_badge"
+                   data-id="{{ product.id }}"
+                   data-url="{{ shop.url }}{{ product.url }}"
+                   data-name="{{ product.title | escape }}"
+                   data-image_url="{{ product.featured_image | product_img_url: 'large' }}"
+                   data-price="{{ product.price }}"
+                   data-price_currency="{{ shop.currency }}"></a>
               </div>
 
               <!-- Options -->
@@ -518,17 +527,6 @@ $(document).ready(function() {
       $(this).addClass('titled swatch').removeClass('.selector-wrapper');
     };
   });
-
-  // $('.swatch-Color').after($('.sized'))
-
-  $('.k_product_rating').click(function(e){
-    e.preventDefault();
-      $('.Reviews').click();
-       $('html, body').animate({
-          scrollTop: $("#full_description").offset().top - 50
-      }, 800);
-  })
-
 });
 
 
@@ -573,5 +571,28 @@ $(document).ready(function() {
     margin: 0;
   }
 </style>
-<center>{% if product.metafields.kudobuzz.review_count > 0 %}<div itemscope itemtype="http://schema.org/Product" ><span itemprop="name"><b>{{product.title}}</b></span><div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">  <u>Rated:</u> <span itemprop="ratingValue">{{product.metafields.kudobuzz.review_rating}}</span> / 5  based on <span itemprop="reviewCount">{{product.metafields.kudobuzz.review_count}}</span> customer reviews </div></div>{% endif %}</center>
+<div class="shopventure--widget">
+  <a class="shopventure-widget"
+  href="https://www.shopventure.com/shops/tucker-and-bloom-reviews"
+  title="Tucker and Bloom Reviews on ShopVenture"
+  data-type="product_review"
+  data-id="{{ product.id }}"
+  data-url="{{ shop.url }}{{ product.url }}"
+  data-name="{{ product.title | escape }}"
+  data-image_url="{{ product.featured_image | product_img_url: 'large' }}"
+  data-price="{{ product.price }}"
+  data-price_currency="{{ shop.currency }}">
+  {{ product.metafields.shopventure.reviews }}</a>
+</div>
+
+<!--
+{{ product.id }}
+{{ shop.url }}{{ product.url }}
+{{ product.title | escape }}
+{{ product.featured_image | product_img_url: 'large' }}
+{{ product.price }}
+{{ shop.currency }}
+{{ product.metafields.shopventure.reviews }}
+-->
+
 {{ 'product-responsive.js' | asset_url | script_tag }}
