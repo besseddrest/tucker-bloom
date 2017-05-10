@@ -126,6 +126,35 @@
   }
 }
 
+/* Image Gallery */
+.product-photo {
+  &-thumb {
+    float: none;
+    height: auto;
+    width: auto;
+    display: none;
+
+    &-link {
+      padding: 10px;
+
+      &::after {
+        content: '•';
+      }
+    }
+
+    img {
+      display: none;
+    }
+  }
+}
+
+#product-content #product-photo-thumbs {
+  margin: 0;
+  width: auto;
+  text-align: center;
+}
+
+/* Tabs */
 .tabs {
   &__full {
     .tabs--item {
@@ -176,11 +205,6 @@
   & img {
     width: 100%;
   }
-}
-
-#product-photo-thumbs {
-  width: 500px;
-  margin: 0 auto;
 }
 
 [data-title="Description"] {
@@ -280,8 +304,9 @@
   }
 
   /* Overrides */
-  #product-photo-thumbs {
+  #product-content #product-photo-thumbs {
     width: auto;
+    text-align: center;
   }
 
   #product-content .select-wrappers .swatch {
