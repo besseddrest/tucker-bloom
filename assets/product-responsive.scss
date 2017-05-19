@@ -1,3 +1,6 @@
+.gallery { display: none; }
+#lightgallery img { width:100%; }
+
 .product {
   &--nav {
     display: flex;
@@ -121,29 +124,6 @@
     padding-left: 10px;
 
     &__mobile {
-      display: none;
-    }
-  }
-}
-
-/* Image Gallery */
-.product-photo {
-  &-thumb {
-    float: none;
-    height: auto;
-    width: auto;
-    display: none;
-    margin-right: 0;
-
-    &-link {
-      padding: 10px;
-
-      &::after {
-        content: '•';
-      }
-    }
-
-    img {
       display: none;
     }
   }
