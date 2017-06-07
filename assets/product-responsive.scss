@@ -1,6 +1,3 @@
-.gallery { display: none; }
-#lightgallery img { width:100%; }
-
 .product {
   &--nav {
     display: flex;
@@ -29,17 +26,18 @@
     & > div {
       display: flex;
       flex-direction: column;
-      flex: 1 1 45%;
       padding: 0 20px;
     }
 
     div.product--photos {
       display: block;
+      flex: 1 1 60%;
     }
 
     div.product--details {
       display: block;
       padding: 0;
+      flex: 1 1 40%;
 
       &-wrapper {
         display: flex;
@@ -111,13 +109,15 @@
   }
 
   &--info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 17px;
   }
 
-  &--security {
-    display: flex;
-    align-items: center;
+  &--safe-secure {
+
   }
 
   &--share {
@@ -129,7 +129,38 @@
   }
 }
 
+// .slick-dots {
+//   display: flex !important;
+//
+//   li {
+//     flex: 1;
+//     width: auto;
+//     height: auto;
+//     padding: 0;
+//     margin: 0;
+//   }
+// }
+
+/* LightGallery */
+.slick {
+  &--slider {
+    position:relative;
+    height: 450px;
+
+    img {
+      width:100%;
+    }
+
+    .slick--group {
+      position: absolute;
+      width: 100%;
+      visibility: hidden;
+    }
+  }
+}
+
 #product-content #product-photo-thumbs {
+  display: none;
   margin: 0;
   width: auto;
   text-align: center;
@@ -167,9 +198,9 @@
 }
 
 /* Overrides */
-.selector-wrapper {
-  display: none;
-}
+// .selector-wrapper {
+//   display: none;
+// }
 
 .b-wrap.b-wrap_single-product {
   padding-top: 40px;
@@ -210,6 +241,12 @@
   #product-photo-thumbs {
     width: 400px;
   }
+
+  .slick {
+    &--slider {
+      height: 400px;
+    }
+  }
 }
 
 /* responsive width for thumbs */
@@ -217,17 +254,39 @@
   #product-photo-thumbs {
     width: 325px;
   }
+
+  .slick {
+    &--slider {
+      height: 325px;
+    }
+  }
 }
 
 /* responsive width for thumbs */
-@media only screen and (max-width: 699px) {
+@media only screen and (max-width: 700px) {
   #product-photo-thumbs {
     width: 250px;
+  }
+
+  .slick {
+    &--slider {
+      height: 265px;
+    }
+  }
+
+  .tabs--wrapper {
+    display: none;
   }
 }
 
 /* phone devices */
 @media only screen and (max-width: 480px) {
+  .slick {
+    &--slider {
+      height: 255px;
+    }
+  }
+
   .product {
     &--main {
       flex-direction: column;

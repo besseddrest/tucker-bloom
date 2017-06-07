@@ -1,8 +1,7 @@
-{{ 'product-responsive.css' | asset_url | stylesheet_tag }}
-
-{{ 'slick.css' | asset_url | stylesheet_tag }}
-
-{{ 'slick-theme.css' | asset_url | stylesheet_tag }}
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/lightgallery/1.3.9/css/lightgallery.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/lightgallery/1.3.9/js/lightgallery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/g/lg-zoom@1.0.4,lg-thumbnail@1.0.3,lg-fullscreen@1.0.1,lg-hash@1.0.1"></script>
   <div class="b-wrap b-wrap_single-product">
     <div class="b-inner b-inner_single-product">
 
@@ -39,7 +38,8 @@
               <div id="product-photos">
                 {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
 
-                <div class="slick--slider"></div>
+                <div id="lightgallery"></div>
+                <div class="product--photo-desc">Click for more product images</div>
 
                 {% if product.images.size > 1 %}
                 <ul id="product-photo-thumbs" class="clearfix">
@@ -100,7 +100,7 @@
 
                   <div class="skbx-hide-x">
                     {% if product.compare_at_price > product.price %}
-                    <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>
+                    <span class="product-price on-sale" itemprop="price">{{ product.price | money }}</span>&nbsp;<span class="product-compare-price">{{ product.compare_at_price_max | money }}</span>
                     {% else %}
                     <span class="product-price" itemprop="price">{{ product.price | money }}</span>
                     {% endif %}
@@ -228,8 +228,6 @@
                 </div>
 
                 <!-- Security & Share-->
-                {% comment %}
-
                 <div class="product--share">
                   <!-- Share -->
                   {% if settings.prod_desc_placement == 'above' or settings.prod_desc_placement == 'bottom' %}
@@ -238,9 +236,6 @@
                   {% endif %}
                   {% endif %}
                 </div>
-
-                {% endcomment %}
-
               </div>
             </div>
           </div>
@@ -310,7 +305,7 @@
 
   /* Custom Light Gallery */
   const product = {{ product | json }};
-  const slickSlider = document.querySelector('.slick--slider');
+  const lightGallery = document.querySelector('#lightgallery');
   const allThumbs = Array.from(document.querySelectorAll('.product-photo-thumb'));
 
   // create a table that will hold all variants and their images
@@ -332,63 +327,51 @@
   for (key in variants) {
     // create a div
     const group = document.createElement('div');
-    group.classList.add('slick--group');
+    group.classList = 'gallery';
     group.id = key;
 
     // get the thumbs that match this variant
     const thumbs = allThumbs.filter(findThumbs(key));
     thumbs.forEach((thumb, i) => {
-      const itemWrap = document.createElement('div');
+      const link = document.createElement('a');
+      link.href = thumb.querySelector('a').href;
       // we only want to show the featured image
-      // if (i > 0)
-      //   link.style.display = 'none';
+      if (i > 0)
+        link.style.display = 'none';
 
       const img = document.createElement('img');
-      img.src = thumb.querySelector('a').href;
+      img.src = link.href;
 
-      itemWrap.appendChild(img);
-      group.appendChild(itemWrap);
+      link.appendChild(img);
+      group.appendChild(link);
     });
 
     // append this to the light gallery div
-    slickSlider.appendChild(group);
+    lightGallery.appendChild(group);
   }
 
-  //
-  // // instantiate multiple light galleries
-  // const $lg = $(".gallery");
-  //
-  // $lg.lightGallery({
-  //   zoom: true,
-  //   thumbnail: true,
-  //   toogleThumb: false,
-  //   fullscreen: true
-  // });
+  // instantiate multiple light galleries
+  const galleries = Array.from(document.querySelectorAll('.gallery'));
+
+  galleries.forEach(gallery => {
+    $('#' + gallery.id).lightGallery({
+      zoom: true,
+      thumbnail: true,
+      toogleThumb: false,
+      fullscreen: true
+    });
+  });
 
   $(function() {
     var selectCallback = function(variant, selector) {
-      $price = $('.product-price'); // price div
-
       // hide the gallery that is showing
-      const galleries = Array.from(document.querySelectorAll('.slick--group'));
       galleries.forEach(gallery => {
-        if (gallery.style.visibility == 'visible');
-        gallery.style.visibility = 'hidden';
+        if (gallery.style.display == 'block');
+        gallery.style.display = 'none';
       });
       // show this variants' gallery
       const group = document.querySelector('#' + variant.sku);
-      group.style.visibility = 'visible';
-
-      // Whether the variant is in stock or not, we can update the price and compare at price
-      if ( variant.compare_at_price > variant.price ) {
-        // Update price field
-        $price.html('<span class="product-price on-sale">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") +'</span>'+'&nbsp;<span class="product-compare-price">'+Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}")+ '</span>');
-        // updateAffirmAsLowAs( variant.price );
-      } else {
-        // Update price field
-        // updateAffirmAsLowAs( variant.price );
-        $price.html('<span class="product-price">'+ Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + '</span>' );
-      }
+      group.style.display = 'block';
     };
 
     new Shopify.OptionSelectors('product-select', {
@@ -398,20 +381,9 @@
     });
   });
 
-  // start slick slider
-  $(document).ready(function(){
-    $('.slick--group').slick({
-      dots: true,
-      arrows: true,
-      accessibility: false,
-      swipe: true
-    });
-  });
-
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');
 
   </script>
 
-  {{ 'slick.min.js' | asset_url | script_tag }}
   {{ 'product-responsive.js' | asset_url | script_tag }}
