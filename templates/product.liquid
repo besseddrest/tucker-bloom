@@ -130,6 +130,13 @@
 
                 <!-- Reviews -->
                 <div class="product--reviews">
+                  <span class="rateit k_product_rating" id="{{ product.id }}"></span>
+
+                  <!--
+                    // KudoBuzz format
+                    <div id="kudobuzz_product_reviews_widget" data-product-id="145969671" data-uid="449423r20303q264r2f4z2w23314y2v234x2"></div>
+
+                    // ShopVenture template include
                   <a class="shopventure-widget"
                      href="https://www.shopventure.com/shops/tucker-and-bloom-reviews"
                      title="Tucker and Bloom Reviews on ShopVenture"
@@ -140,6 +147,10 @@
                      data-image_url="{{ product.featured_image | product_img_url: 'large' }}"
                      data-price="{{ product.price }}"
                      data-price_currency="{{ shop.currency }}"></a>
+
+                     // goes in individual product
+                     <a class="shopventure-widget" href="https://www.shopventure.com/shops/tucker-and-bloom-reviews" title="Tucker and Bloom Reviews on ShopVenture" data-type="product_review" data-id="145969671" data-url="https://www.tucker-bloom.com/products/walden-backpack" data-name="WALDEN LAPTOP BACKPACK." data-image_url="//cdn.shopify.com/s/files/1/0217/1178/products/backpack-walden-backpack-with-an-optional-laptop-sleeve-and-a-lifetime-warranty-1_large.jpg?v=1493830251" data-price="18500" data-price_currency="USD"></a>
+                   -->
                 </div>
 
                 <!-- Options -->
@@ -406,12 +417,22 @@
       accessibility: false,
       swipe: true
     });
+
+    $('.k_product_rating').click(function(e){
+      e.preventDefault();
+        $('.Reviews').click();
+         $('html, body').animate({
+            scrollTop: $("#full_description").offset().top - 50
+        }, 800);
+    })
   });
 
   Shopify.Image.preload({{ product.images | json }}, 'grande');
   Shopify.Image.preload({{ product.images | json }}, '1024x1024');
 
-  </script>
 
+  console.log({{ product.id }});
+  </script>
+<center>{% if product.metafields.kudobuzz.review_count > 0 %}<div itemscope itemtype="http://schema.org/Product" ><span itemprop="name"><b>{{product.title}}</b></span><div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">  <u>Rated:</u> <span itemprop="ratingValue">{{product.metafields.kudobuzz.review_rating}}</span> / 5  based on <span itemprop="reviewCount">{{product.metafields.kudobuzz.review_count}}</span> customer reviews </div></div>{% endif %}</center>
   {{ 'slick.min.js' | asset_url | script_tag }}
   {{ 'product-responsive.js' | asset_url | script_tag }}

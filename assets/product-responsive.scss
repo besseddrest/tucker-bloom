@@ -191,6 +191,14 @@
       flex: 2;
     }
   }
+
+  &--item:last-child {
+    display: none !important;
+  }
+}
+
+.tab-switch:last-child, .tab-section:last-child, #full_description .Reviews, #full_description [data-title="Reviews"] {
+  display: none !important;
 }
 
 .user--selection::before {
@@ -327,6 +335,7 @@
       &__mobile {
         display: block;
         font-weight: bold;
+        font-size: 18px;
       }
 
       &__main {

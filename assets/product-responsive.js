@@ -42,11 +42,6 @@ window.onresize = () => {
     renderTabsFull();
 }
 
-/* ShopVenture Reviews
-// Copies the code that instantiates the ShopVenture reviews and includes it
-// in the reviews tabs
-*/
-
 /* Swatch Labels */
 const swatchGroup = Array.from(document.querySelectorAll('.swatch'));
 swatchGroup.forEach(group => {
